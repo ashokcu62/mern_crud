@@ -1,9 +1,11 @@
 import express from "express";
 
-const router=express.Router();
+const router=express();
 
-router.post('/add',()=>{
-     console.log("hello")
+router.post('/add',(req,res,next)=>{
+    console.log("add page")
+    res.end()
+    next()
 })
 
 export default router;
