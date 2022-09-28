@@ -2,6 +2,8 @@ import React from 'react'
 import { FormControl, FormGroup, Input, InputLabel, TextField, Typography, styled ,Button} from '@mui/material';
 import { useState } from 'react';
 import { addUser } from '../../Services/api';
+import{AllUsers}from'../allUsers/AllUsers';
+import{useNavigate}  from"react-router-dom"
 
 //==================Styles==============//
 const Container = styled(FormGroup)`
@@ -14,8 +16,8 @@ const Container = styled(FormGroup)`
 
 
 function AddUser() {
-  
-  //===============object ==================
+const navigate=useNavigate()
+//===============object ==================
 const defautValue={
   name:"",
   username: "",
@@ -34,7 +36,9 @@ const defautValue={
   }
 
   const addUserDetails= async()=>{
-    await addUser(user)
+    await addUser(user).then(()=>{
+      navigate('/all')
+    })
   }
   
   const display=()=>{
@@ -52,6 +56,7 @@ const defautValue={
           <Input
            onChange={(e)=>handleSubmit(e)}
            name="name"
+           required
            />
         </FormControl>
 
@@ -60,6 +65,7 @@ const defautValue={
           <Input
           onChange={(e)=>handleSubmit(e)}
           name="username"
+          required
            />
         </FormControl>
 
@@ -68,6 +74,7 @@ const defautValue={
           <Input
            onChange={(e)=>handleSubmit(e)}
            name="email"
+           required
           />
         </FormControl>
 
@@ -76,6 +83,7 @@ const defautValue={
           <Input
            onChange={(e)=>handleSubmit(e)}
            name="phone"
+           required
           />
         </FormControl>
 
@@ -84,6 +92,7 @@ const defautValue={
           <Input
            onChange={(e)=>handleSubmit(e)}
            name="password"
+           required
           />
         </FormControl>
         <FormControl>  

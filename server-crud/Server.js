@@ -20,13 +20,6 @@ app.use(bodyParser.urlencoded({extended:true})); //  for encode url
 app.use(Routes);
 
 
-app.get('/',(req,res,next)=>{
-       console.log("home")
-       res.send("hello")
-       res.end()
-       next()
-})
-
 
 const port=8000;   
 
