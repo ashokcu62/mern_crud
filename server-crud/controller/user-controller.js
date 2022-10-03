@@ -1,7 +1,7 @@
 
 import User from '../schema/users-schema.js'
 
-
+// create
 export const addUser = async (req, res) => {
     console.log("add user page")
     //npm i body-parser
@@ -22,7 +22,7 @@ export const addUser = async (req, res) => {
     }
 }
 
-
+// read
 export const getUsers = async (req, res) => {
     try {
         const users = await User.find({}) //fetching  users data 
@@ -30,5 +30,36 @@ export const getUsers = async (req, res) => {
     } catch (error) {
         console.log(" fetching users from  database faild :", error.message)
         res.status(404).json({ message: error.message })
+    }
+}
+
+// read
+
+export const getUser = async (req, res) => {
+    console.log(req.params.id)
+    try {
+        // const user = await User.find({ _id: req.params.id })    //find function 1st 0bject and  fn data
+        const user = await User.findById(req.params.id)
+        res.status(200).json(user)
+    } catch (error) {
+        console.log("fetching user details from database faild :", error.message)
+        res.status(404).json({ message: error.message })
+    }
+}
+
+// update
+export const editUser = async (req, res) => {
+    const user = req.body
+    const updateUser = new User(user)
+
+    try {
+        await User.updateOne({ _id: req.params.id }, updateUser)  //id and updated object
+        res.status(201).json(updateUser)
+        console.log(" updated user data")
+
+    } catch (error) {
+        console.log(" updating userdata to database faild :", error.message)
+        res.status(409).json({ message: error.message })
+
     }
 }

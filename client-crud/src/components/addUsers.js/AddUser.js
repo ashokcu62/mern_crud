@@ -22,7 +22,6 @@ const defautValue={
   name:"",
   username: "",
   email: "",
-  password: "",
   phone: "",
   }
   //============================
@@ -83,15 +82,6 @@ const defautValue={
           <Input
            onChange={(e)=>handleSubmit(e)}
            name="phone"
-           required
-          />
-        </FormControl>
-
-        <FormControl>
-          <InputLabel>Password</InputLabel>
-          <Input
-           onChange={(e)=>handleSubmit(e)}
-           name="password"
            required
           />
         </FormControl>
