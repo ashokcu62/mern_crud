@@ -3,7 +3,7 @@ import User from '../schema/users-schema.js'
 
 // create
 export const addUser = async (req, res) => {
-    console.log("add user page")
+    console.log("add user")
     //npm i body-parser
     //to get the body data  body parser is important
 
@@ -24,6 +24,7 @@ export const addUser = async (req, res) => {
 
 // read
 export const getUsers = async (req, res) => {
+    console.log("get users")
     try {
         const users = await User.find({}) //fetching  users data 
         res.status(200).json(users)
@@ -36,7 +37,7 @@ export const getUsers = async (req, res) => {
 // read
 
 export const getUser = async (req, res) => {
-    console.log(req.params.id)
+    console.log("get user", req.params.id)
     try {
         // const user = await User.find({ _id: req.params.id })    //find function 1st 0bject and  fn data
         const user = await User.findById(req.params.id)
@@ -49,6 +50,7 @@ export const getUser = async (req, res) => {
 
 // update
 export const editUser = async (req, res) => {
+    console.log("update user", req.params.id)
     const user = req.body
     const updateUser = new User(user)
 
@@ -61,5 +63,19 @@ export const editUser = async (req, res) => {
         console.log(" updating userdata to database faild :", error.message)
         res.status(409).json({ message: error.message })
 
+    }
+}
+
+// delete
+export const deleteUser = async (req, res) => {
+    console.log("del:", req.params.id)
+    try {
+        await User.deleteOne({ _id: req.params.id })
+        res.status(200).json({ message: "deleted successfully" })
+        console.log("deleted User  successFully")
+
+    } catch (error) {
+        console.log(" updating userdata from database faild :", error.message)
+        res.status(409).json({ message: error.message })
     }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Table, TableBody, TableHead, TableCell, TableRow ,Button} from '@mui/material'
+import { Table, TableBody, TableHead, TableCell, TableRow, Button } from '@mui/material'
 import { useEffect } from 'react'
-import { getUsers } from '../../Services/api'
+import { getUsers,deleteUser } from '../../Services/api'
 import styled from '@emotion/styled'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -26,6 +26,7 @@ const TBody = styled(TableRow)`
 
 
 function AllUsers() {
+  const navigate=useNavigate()
   const [users, setUsers] = useState([])
   useEffect(() => {
     getAllUsers()
@@ -36,6 +37,16 @@ function AllUsers() {
     setUsers(response.data)
     console.log(response.data)
   }
+
+  const deleteData=async(id) => {
+    await deleteUser(id);
+    getAllUsers()
+    
+  }
+
+
+
+
   return (
     <div>
       <StyledTable>
@@ -51,19 +62,19 @@ function AllUsers() {
         <TableBody>
           {
             users.map((user =>
-              <TBody>
+              <TBody key={user._id}>
                 <TableCell>{user._id}</TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.username}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.phone}</TableCell>
                 <TableCell>
-                  <Button variant="contained" style={{marginRight:10}} component={Link} to={`/edit/${user._id}`}>Edit</Button>
-                  <Button  variant="contained" color="secondary">Delete</Button>
+                  <Button variant="contained" style={{ marginRight: 10 }} component={Link} to={`/edit/${user._id}`}>Edit</Button>
+                  <Button variant="contained" color="secondary" onClick={() => deleteData(user._id)}>Delete</Button>
                 </TableCell>
               </TBody>
             ))
-          }   
+          }
         </TableBody>
       </StyledTable>
     </div>
